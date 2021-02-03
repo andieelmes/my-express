@@ -6,9 +6,8 @@
   },
   "private": true,
   "scripts": {
-    "build": "node ./bin/www",
-    "serve": "nodemon ./bin/www",
-    "start": "DEBUG=my-express:* npm run serve",
+    "start": "node ./bin/www",
+    "serve": "DEBUG=my-express:* npm run nodemon ./bin/www",
     "lint:js": "eslint controllers/**/*.js models/**/*.js routes/**/*.js app.js --fix --cache --config ./.eslintrc.json",
     "lint": "npm-run-all lint:**"
   },
