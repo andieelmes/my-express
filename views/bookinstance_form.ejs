@@ -1,0 +1,83 @@
+<%- include('parts/head') -%>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('parts/nav') -%>
+        <div class="col-sm-10">
+          <h1><%= title %></h1>
+
+          <form method="POST" action=''>
+            <div class="form-group">
+              <label for="book">Book: </label>
+              <select
+                id="book"
+                class="form-control"
+                placeholder="Select book"
+                name="book"
+              >
+                <% locals.books
+                  && books
+                    .sort((a, b) => a.title.localeCompare(b.title))
+                    .forEach(book => { %>
+                      <option
+                        value="<%= book._id %>"
+                        <%= locals.instance && instance.book && String(instance.book._id) === String(book._id) ? "selected" : '' %>
+                      >"<%= book.title %>" by <%= book.author.name %> </option>
+                    <% })
+                %>
+              </select>
+
+              <label for="isbn">Imprint: </label>
+              <input
+                id="imprint"
+                class="form-control"
+                type="text"
+                placeholder="Imprint"
+                name="imprint"
+                value="<%= locals.instance ? instance.imprint: ''%>"
+              />
+
+              <label for="isbn">Date when book available: </label>
+              <input
+                id="due_back"
+                class="form-control"
+                type="text"
+                placeholder="yyyy-mm-dd"
+                name="due_back"
+                value="<%= locals.instance ? instance.due_back_formatted_edit: ''%>"
+              />
+
+              <label for="book">Status: </label>
+              <select
+                id="status"
+                class="form-control"
+                placeholder="Select status"
+                name="status"
+              >
+                <% locals.statuses
+                  && statuses
+                    .sort((a, b) => a.localeCompare(b))
+                    .forEach(status => { %>
+                      <option
+                        value="<%= status %>"
+                        <%= locals.instance && instance.status && instance.status === status ? "selected" : '' %>
+                      ><%= status %> </option>
+                    <% })
+                %>
+              </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </form>
+
+          <% if (locals.errors) { %>
+            <ul>
+              <% errors.forEach(error => { %>
+                <li><%= error.msg %> </li>
+              <% }) %>
+            </ul>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

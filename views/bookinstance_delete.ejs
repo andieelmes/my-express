@@ -1,0 +1,39 @@
+<%- include('parts/head') -%>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('parts/nav') -%>
+        <div class="col-sm-10">
+          <h1>ID <%= title %></h1>
+
+          <p><b>Title: </b> <a href="<%= instance.book.url %> "><%= instance.book.title %></a> </p>
+
+          <p><b>Imprint: </b> <%= instance.imprint %></p>
+
+          <p><b>Status: </b>
+            <span class="
+            <% if (instance.status === 'Available') { %>
+              text-success
+            <% }
+            else if (instance.status === 'Maintenance') { %>
+              text-danger
+            <% }
+            else { %>
+              text-warning
+            <% } %>
+            "><%= instance.status %></span>
+          </p>
+          <% if (instance.status !== 'Available') { %>
+            <p><b>Due back: </b><%= instance.due_back_formatted_view || 'Unknown' %></p>
+          <% } %>
+
+          <form method="POST" action=''>
+            <p>Do you really want to delete this book instance?</p>
+            <input type="hidden" value="<%= instance._id %>" name="instance_id"/>
+            <button class="btn btn-primary" type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<%- include('parts/head') -%>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('parts/nav') -%>
+        <div class="col-sm-10">
+          <h1>Title: <%= title %></h1>
+
+          <p><b>Author: </b> <a href="<%= book.author.url %> "><%= book.author.name %></a> </p>
+
+          <p><b>Summary: </b> <%= book.summary %></p>
+
+          <p><b>ISBN: </b> <%= book.isbn %></p>
+
+          <p><b>Genre: </b> 
+            <% book.genre.forEach((genre, index, arr) => { %>
+              <a href="<%= genre.url %>"><%= genre.name %></a><% if (index < arr.length - 1) { %>, <% } %>
+            <% }) %>
+          </p>
+
+          <% if (book_instances && book_instances.length) { %>
+            <p><b>Delete the following copies before attempting to delete this book:</b></p>
+            <ul>
+              <% book_instances.forEach(instance => { %>
+                <li>
+                  <p class="
+                    <% if (instance.status === 'Available') { %>
+                      text-success
+                    <% }
+                    else if (instance.status === 'Maintenance') { %>
+                      text-danger
+                    <% }
+                    else { %>
+                      text-warning
+                    <% } %>
+                    "
+                  > <%= instance.status %>  </p>
+                  <% if (instance.status !== 'Available') { %>
+                    <p>Due back: <%= instance.due_back_formatted_view || 'Unknown' %></p>
+                  <% } %>
+                  <p><b>Imprint: </b> <%= instance.imprint %></p>
+                  <p><b>Id: </b> <a href="<%= instance.url %>"> <%= instance._id %></a></p>
+                </li>
+              <% }) %>
+            </ul>                  
+          <% } else { %>
+            <form method="POST" action=''>
+              <p>Do you really want to delete this book?</p>
+              <input type="hidden" value="<%= book._id %>" name="book_id"/>
+              <button class="btn btn-primary" type="submit">Delete</button>
+            </form>
+          <% } %>  
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

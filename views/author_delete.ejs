@@ -1,0 +1,35 @@
+<%- include('parts/head') -%>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('parts/nav') -%>
+        <div class="col-sm-10">
+          <h1>Author <%= title %></h1>
+
+          <% if (author.lifespan) { %>
+            <p><%= author.lifespan %></p>
+          <% } %>
+
+          <% if (books && books.length) { %>
+            <p><b>Delete the following books before attempting to delete this author:</b></p>
+
+            <ul>
+              <% books.forEach(book => { %>
+                <li>
+                  <a href="<%= book.url %>"><%= book.title %></a>
+                  <p><%= book.summary %></p>
+                </li>
+              <% }) %>
+            </ul>
+          <% } else { %>
+            <form method="POST" action=''>
+              <p>Do you really want to delete this author?</p>
+              <input type="hidden" value="<%= author._id %>" name="author_id"/>
+              <button class="btn btn-primary" type="submit">Delete</button>
+            </form>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

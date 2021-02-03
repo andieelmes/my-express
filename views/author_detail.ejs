@@ -1,0 +1,40 @@
+<%- include('parts/head') -%>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('parts/nav') -%>
+        <div class="col-sm-10">
+          <h1>Author: <%= title %></h1>
+
+          <% if (author.lifespan) { %>
+            <p><%= author.lifespan %></p>
+          <% } %>
+
+          <h3>Books</h3>
+          <% if (books.length) { %>
+            <ul>
+              <% books.forEach(book => { %>
+                <li>
+                  <a href="<%= book.url %>"><%= book.title %></a>
+                  <p><%= book.summary %></p>
+                </li>
+              <% }) %>
+            </ul>
+          <% } else { %>
+            <span>There are no books by this author.</span>
+          <% } %>
+
+          <hr>
+
+          <a href="<%= `${author.url}/delete` %>">Delete author</a>
+
+          <hr>
+
+          <a href="<%= `${author.url}/update` %>">Update author</a>
+
+          <hr>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<%- include('parts/head') -%>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('parts/nav') -%>
+        <div class="col-sm-10">
+          <h1><%= title %></h1>
+
+          <form method="POST" action=''>
+            <div class="form-group">
+              <label for="first_name">First name: </label>
+              <input
+                id="name"
+                class="form-control"
+                type="text"
+                placeholder="First name (George)"
+                name="first_name"
+                value="<%= locals.author ? author.first_name: ''%>"
+              />
+
+              <label for="family_name">Family name: </label>
+              <input
+                id="name"
+                class="form-control"
+                type="text"
+                placeholder="Family name (Martin)"
+                name="family_name"
+                value="<%= locals.author ? author.family_name: ''%>"
+              />
+
+              <label for="date_of_birth">Date of Birth: </label>
+              <input
+                id="name"
+                class="form-control"
+                type="text"
+                placeholder="yyyy-mm-dd"
+                name="date_of_birth"
+                value="<%= locals.author ? author.date_of_birth_formatted_edit: ''%>"
+              />
+
+              <label for="date_of_death">Date of death: </label>
+              <input
+                id="name"
+                class="form-control"
+                type="text"
+                placeholder="yyyy-mm-dd"
+                name="date_of_death"
+                value="<%= locals.author ? author.date_of_death_formatted_edit: ''%>"
+              />
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </form>
+
+          <% if (locals.errors) { %>
+            <ul>
+              <% errors.forEach(error => { %>
+                <li><%= error.msg %> </li>
+              <% }) %>
+            </ul>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

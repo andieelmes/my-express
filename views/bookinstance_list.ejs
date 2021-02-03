@@ -1,0 +1,35 @@
+<%- include('parts/head') -%>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('parts/nav') -%>
+        <div class="col-sm-10">
+          <h1> <%= title %></h1>
+
+          <ul>
+            <% bookinstance_list.forEach(instance => { %>
+              <li>
+                <a href="<%= instance.url %>"><%= instance.book.title %> : <%= instance.imprint %> </a>
+                <span class="
+                  <% if (instance.status === 'Available') { %>
+                    text-success
+                  <% }
+                  else if (instance.status === 'Maintenance') { %>
+                    text-danger
+                  <% }
+                  else { %>
+                    text-warning
+                  <% } %>
+                  "
+                > <%= instance.status %>  </span>
+                <% if (instance.status !== 'Available') { %>
+                  <span>Due: <%= instance.due_back_formatted_view || 'Unknown' %></span>
+                <% } %>
+              </li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

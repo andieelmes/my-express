@@ -1,0 +1,24 @@
+<%- include('parts/head') -%>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <%- include('parts/nav') -%>
+        <div class="col-sm-10">
+          <h1> <%= title %></h1>
+
+          <% if (genre_list.length) { %>
+            <ul>
+              <% genre_list.forEach(genre => { %>
+                <li>
+                  <a href="<%= genre.url %>"><%= genre.name %></a>
+                </li>
+              <% }) %>
+            </ul>
+          <% } else { %>
+            <span>There are no genres.</span>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
