@@ -8,8 +8,6 @@ const helmet = require('helmet');
 
 const mongoose = require('mongoose');
 
-const { DEV_MONGODB_URI } = require('./local-vars');
-
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const wikiRouter = require('./routes/wiki');
@@ -33,7 +31,8 @@ app.use(helmet.xssFilter());
 
 // Set up mongoose connection
 
-const mongoDB = process.env.MONGODB_URI || DEV_MONGODB_URI;
+const mongoDB = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : require('./local-vars').DEV_MONGODB_URI;
+
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
